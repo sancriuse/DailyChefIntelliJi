@@ -37,7 +37,7 @@ public class Catalog {
         for (Recipe r: recipeCatalog) {
             recipeList = recipeList + "\n" + r.getRecipeInformation();
         }
-        return recipeCatalog.size() + " recipes in catalog:\n" + recipeList;
+        return recipeCatalog.size() + " recipes in catalog:" + recipeList;
     }
 
     // search and filter recipe
@@ -62,9 +62,7 @@ public class Catalog {
         return filtered;
     }
 
-    public String getNameOfCatalog() {
-        return name;
-    }
+    //public String getNameOfCatalog() {return name;}
 
     public ArrayList<Recipe> getRecipeCatalog() {
         return recipeCatalog;

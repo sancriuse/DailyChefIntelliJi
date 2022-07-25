@@ -3,12 +3,15 @@ package model;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CatalogTest {
     private Catalog easyRecipes;
+    private ArrayList<Recipe> recipeList;
     private Recipe omlette, peanutButterSandwich;
-
 
     @BeforeEach
     public void runBefore() {
@@ -24,6 +27,38 @@ class CatalogTest {
         assertEquals(2, easyRecipes.getNumOfRecipes());
     }
 
+    @Test
+    public void viewRecipesTest() {
+        easyRecipes.addRecipe(omlette);
+
+        assertEquals(("1 recipes in catalog:" + "\n" + "Name: omlette | Ingredients: Eggs, Salt | Calorie " +
+                "Intake: 300 | Duration: 20 | Rating: 9"), easyRecipes.viewRecipes(easyRecipes.getRecipeCatalog()));
+
+        easyRecipes.addRecipe(peanutButterSandwich);
+
+        assertEquals("2 recipes in catalog:\n" + "Name: omlette | Ingredients: Eggs, Salt | Calorie Intake: 300 " +
+          "| Duration: 20 | Rating: 9\n" + "Name:  | Ingredients:  | Calorie Intake: 0 " +
+          "| Duration: 0 | Rating: 0", easyRecipes.viewRecipes(easyRecipes.getRecipeCatalog()));
+
+         //   recipeList = "" + "\n" + r.getRecipeInformation();
+        //return recipeCatalog.size() + " recipes in catalog:\n" + recipeList; */
+    }
+
+
+    @Test
+    public void getRecipeCatalogTest() {
+        easyRecipes.addRecipe(omlette);
+        assertTrue(easyRecipes.getRecipeCatalog().contains(omlette));
+        assertEquals(1, easyRecipes.getRecipeCatalog().size());
+
+        easyRecipes.addRecipe(peanutButterSandwich);
+        assertTrue(easyRecipes.getRecipeCatalog().contains(peanutButterSandwich));
+        assertEquals(2, easyRecipes.getRecipeCatalog().size());
+
+    }
+
+        //public ArrayList<Recipe> getRecipeCatalog()
+        //return recipeCatalog;
 
     @Test
     // tests if recipe is added to the Catlog

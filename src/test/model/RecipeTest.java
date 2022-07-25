@@ -29,9 +29,30 @@ public class RecipeTest {
     }
 
     @Test
+    public void addRatingTest() {
+        peanutButterSandwich.addRating(9);
+        assertEquals(9, peanutButterSandwich.getRating());
+    }
+
+    @Test
+    public void getRecipeInformationTest() {
+        easyRecipes.addRecipe(omlette);
+        assertEquals(omlette.getRecipeInformation(), "Name: omlette | Ingredients: Eggs, Salt | Calorie " +
+                "Intake: 300 | Duration: 20 | Rating: 9");
+    }
+
+    @Test
     public void addNameOfRecipeTest() {
         peanutButterSandwich.addNameOfRecipe("peanutButterSandwich");
         assertEquals(peanutButterSandwich.getNameOfRecipe(), "peanutButterSandwich");
+    }
+
+
+
+    @Test
+    public void addIngredientsTest() {
+        peanutButterSandwich.addIngredients("Peanut Butter, Bread");
+        assertEquals("Peanut Butter, Bread, ", peanutButterSandwich.getIngredients());
     }
 
 
