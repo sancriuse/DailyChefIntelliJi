@@ -20,7 +20,7 @@ public class Recipe {
     // MODIFIES: Recipe
     // EFFECTS: adds the name to the Recipe
     public void addNameOfRecipe(String name) {
-       this.name = name;
+        this.name = name;
     }
 
     // EFFECTS: Recipe Information
@@ -49,7 +49,7 @@ public class Recipe {
     // MODIFIES: this
     // EFFECTS: adds the calorie intake to a particular recipe
     public void addCalorieIntake(int calorieIntake) {
-         this.calorieIntake = calorieIntake;
+        this.calorieIntake = calorieIntake;
     }
 
     // REQUIRES: duration > 0

@@ -80,7 +80,6 @@ public class ChefDailyApp {
     }
 
 
-
     // MODIFIES: this
     // EFFECTS: processes user input
     private void processCommand(String command) {
@@ -117,7 +116,7 @@ public class ChefDailyApp {
         } else if (command.equals("rating")) {
             System.out.println("Please insert the name of the recipe you want to rate:");
             addRating(input.nextLine());
-        }  else {
+        } else {
             System.out.println("Sorry, selection not valid...");
         }
     }
@@ -128,11 +127,10 @@ public class ChefDailyApp {
     }
 
 
-
     // MODIFIES: this
     // EFFECTS: adds more ingredients to the recipe w/ the given name
     private void addIngredients(String name) {
-        for (Recipe r: recipes) {
+        for (Recipe r : recipes) {
             if (r.getNameOfRecipe().equals(name.toLowerCase())) {
                 System.out.println("please insert the ingredients (comma separated):");
                 r.addIngredients(input.nextLine());
@@ -143,7 +141,7 @@ public class ChefDailyApp {
     // MODIFIES: this
     // EFFECTS: add rating for the recipe
     private void addRating(String name) {
-        for (Recipe r: recipes) {
+        for (Recipe r : recipes) {
             if (r.getNameOfRecipe().equals(name.toLowerCase())) {
                 System.out.println("Please insert a rating from 1 to 10:");
                 int rating = Integer.parseInt(input.nextLine());
@@ -172,14 +170,12 @@ public class ChefDailyApp {
     // MODIFIES: this
     // EFFECTS: removes recipe
     private void removeRecipe(String name) {
-        for (Recipe r: recipes) {
+        for (Recipe r : recipes) {
             if (r.getNameOfRecipe().equals(name.toLowerCase())) {
                 recipeCatalog.removeRecipe(r);
             }
         }
     }
-
-
 
 
 }
