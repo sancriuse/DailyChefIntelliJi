@@ -26,7 +26,6 @@ to cook, therefore a catalogue is of great help.
 
 ## User Stories and Features
 
-(P1)
 - As a user, I want to add a new recipe with a name to my catalog.
 - As a user, I want to remove recipes from my catalog.
 - As a user, I want to see the number of recipes in my catalog.
@@ -36,7 +35,9 @@ to cook, therefore a catalogue is of great help.
 - As a user, I want to add a rating to a recipe on a scale of 1 to 10. 
 - As a user, I want to view my recipes in my catalog.
 - As a user, I want to Search and filter through the catalog based on settings like name.
-- As a user, I want to save and load my catalog. 
+- 
+- As a user, I want to save my catalogue to file.
+- As a user, I want to load my catalogue from file.
 
 
 
