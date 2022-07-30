@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONObject;
+
+// A recipe with name and parameters
 public class Recipe {
     private String name;
     private int calorieIntake; // default = 0
@@ -8,6 +11,7 @@ public class Recipe {
     private String ingredients;
 
 
+    //initiates a Recipe
     public Recipe(String name, int calorieIntake, int duration, String ingredients, int rating) {
         this.name = name;
         this.calorieIntake = calorieIntake;
@@ -79,6 +83,18 @@ public class Recipe {
         return ingredients;
     }
 
+    // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
+    //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns recipe as a JSON object
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("calorieIntake", calorieIntake);
+        json.put("duration", duration);
+        json.put("ingredients", ingredients);
+        json.put("rating", rating);
+        return json;
+    }
 
 
 

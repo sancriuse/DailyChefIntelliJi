@@ -71,7 +71,7 @@ class CatalogTest {
 
 
     @Test
-    // tests if recipe is removed from a catalogue.
+    // tests if recipe is removed from a catalog.
     // remove 1, make it empty
     public void removeRecipeTest() {
         easyRecipes.addRecipe(omlette);

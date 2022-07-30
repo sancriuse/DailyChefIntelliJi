@@ -1,0 +1,10 @@
+{
+  "name": "Meat recipes",
+  "recipeCatalog": [{
+      "name": "Steak",
+      "calorieIntake": 500,
+      "duration": 30,
+      "ingredients": "Steak, Oil",
+      "rating": 5
+    }]
+}

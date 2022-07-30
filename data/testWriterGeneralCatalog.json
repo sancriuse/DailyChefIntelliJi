@@ -1,0 +1,10 @@
+{
+    "recipeCatalog": [{
+        "duration": 15,
+        "calorieIntake": 300,
+        "name": "Chicken",
+        "rating": 9,
+        "ingredients": "Chicken, Oil"
+    }],
+    "name": "Meat recipes"
+}

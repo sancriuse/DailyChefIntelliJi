@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // A catalogue of recipes
@@ -7,6 +10,7 @@ public class Catalog {
     private String name;
     private ArrayList<Recipe> recipeCatalog;
 
+    // MODIFIES: this
     // EFFECTS: constructs a new Catalog
     public Catalog(String name) {
         this.name = name;
@@ -20,8 +24,12 @@ public class Catalog {
         recipeCatalog.add(recipe);
     }
 
+    public String getNameOfCatalog() {
+        return name;
+    }
+
     // REQUIRES:
-    // MODIFIES: Catlog
+    // MODIFIES: Catalog
     // EFFECTS: remove recipes from the catalog.
     public void removeRecipe(Recipe recipe) {
         recipeCatalog.remove(recipe);
@@ -40,7 +48,7 @@ public class Catalog {
         return recipeCatalog.size() + " recipes in catalog:" + recipeList;
     }
 
-    // search and filter recipe
+    // EFFECTS: search and filter recipe
     public ArrayList<Recipe> filterRecipesByName(String name) {
         ArrayList<Recipe> filtered = new ArrayList<>();
         for (Recipe r: recipeCatalog) {
@@ -71,6 +79,28 @@ public class Catalog {
 
     public boolean contains(Recipe recipe) {
         return recipeCatalog.contains(recipe);
+    }
+
+    // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
+    //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns recipeCatalog as a JSON object
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("recipeCatalog", recipesToJson());
+        return json;
+    }
+
+
+    // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
+    //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns a JSon array (from recipeCatalog)
+    private JSONArray recipesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Recipe r : recipeCatalog) {
+            jsonArray.put(r.toJson());
+        }
+        return jsonArray;
     }
 
 

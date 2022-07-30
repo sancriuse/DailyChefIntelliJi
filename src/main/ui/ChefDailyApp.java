@@ -1,16 +1,28 @@
+//Used basic syntax and code for runApp, processCommand and displayMenu from the Teller Application.
+
 package ui;
 
 import model.Catalog;
 import model.Recipe;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 //Chef Daily Application
 public class ChefDailyApp {
+    private static final String JSON_STORE = "./data/catalog.json";
     private Scanner input;
     private Catalog recipeCatalog;
     private ArrayList<Recipe> recipes;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
 
 
     // EFFECTS: runs the app
@@ -19,6 +31,8 @@ public class ChefDailyApp {
         recipes = recipeCatalog.getRecipeCatalog();
         input = new Scanner(System.in);
         runChefDailyApp();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // MODIFIES: this
@@ -30,13 +44,13 @@ public class ChefDailyApp {
 
         while (keepGoing) {
 
-            displayMenu();
+            displayMainMenu();
             String command = input.next().toLowerCase();
 
-            if (command.equals("q")) {
+            if (command.equals("quit")) {
                 keepGoing = false;
             } else {
-                processCommand(command);
+                processMainCommand(command);
             }
         }
         System.out.println("Daily Chef says GoodBye!");
@@ -51,7 +65,7 @@ public class ChefDailyApp {
 
             String command = input.next().toLowerCase();
 
-            if (command.equals("q")) {
+            if (command.equals("quit")) {
                 keepGoing = false;
             } else {
                 processRecipeCommand(command);
@@ -60,36 +74,47 @@ public class ChefDailyApp {
     }
 
     // EFFECTS: prints the main menu
-    private void displayMenu() {
+    private void displayMainMenu() {
         System.out.println("\nPlease select from:");
-        System.out.println("\tview -> to view all of your current recipes");
         System.out.println("\trecipe -> to go to recipe options");
-        System.out.println("\tq -> quit");
+        System.out.println("\tview -> to view all of your current recipes");
+        System.out.println("\tload -> to load catalog");
+        System.out.println("\tsave -> to save catalog");
+        System.out.println("\tquit -> to quit");
     }
 
     // EFFECTS: prints the recipe menu
     private void displayRecipeMenu() {
         System.out.println("\nPlease select from:");
-        System.out.println("\ta -> to add a new Recipe");
-        System.out.println("\tr -> to remove an existing Recipe");
+        System.out.println("\tadd -> to add a new Recipe");
+        System.out.println("\tremove -> to remove an existing Recipe");
         System.out.println("\tfilter-name -> to filter recipes by a name");
         System.out.println("\tfilter-rating -> to filter recipes by a rating");
         System.out.println("\tadd-ingredients -> to add ingredients to an existing Recipe");
         System.out.println("\trating -> to set the rating of an existing Recipe");
-        System.out.println("\tq -> to quit recipe options and go back to main menu");
+        System.out.println("\tquit -> to quit and back to main menu");
     }
 
 
     // MODIFIES: this
     // EFFECTS: processes user input
-    private void processCommand(String command) {
+    private void processMainCommand(String command) {
         switch (command) {
             case "view":
                 seeRecipes();
+                break;
             case "recipe":
                 runRecipeMenu();
+                break;
+            case "load":
+                loadRecipeCatalog();
+                break;
+            case "save":
+                saveRecipeCatalog();
+                break;
             default:
                 System.out.println("Sorry, selection not valid...");
+                break;
         }
     }
 
@@ -97,9 +122,9 @@ public class ChefDailyApp {
     // EFFECTS: processes user input relating to recipes
     private void processRecipeCommand(String command) {
         input.nextLine();
-        if (command.equals("a")) {
+        if (command.equals("add")) {
             addRecipe();
-        } else if (command.equals("r")) {
+        } else if (command.equals("remove")) {
             System.out.println("Please insert the name of recipe you want to remove:");
             removeRecipe(input.nextLine());
         } else if (command.equals("filter-name")) {
@@ -170,12 +195,42 @@ public class ChefDailyApp {
     // MODIFIES: this
     // EFFECTS: removes recipe
     private void removeRecipe(String name) {
-        for (Recipe r : recipes) {
-            if (r.getNameOfRecipe().equals(name.toLowerCase())) {
-                recipeCatalog.removeRecipe(r);
+        for (int i = 0; i < recipeCatalog.getRecipeCatalog().size(); i++) {
+            if (recipeCatalog.getRecipeCatalog().get(i).getNameOfRecipe().equals(name.toLowerCase())) {
+                recipeCatalog.removeRecipe(recipeCatalog.getRecipeCatalog().get(i));
             }
         }
     }
+
+
+
+    // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
+    //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: saves the recipeCatalog to file
+    private void saveRecipeCatalog() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(recipeCatalog);
+            jsonWriter.close();
+            System.out.println("Saved " + recipeCatalog.getNameOfCatalog() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
+    //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // MODIFIES: this
+    // EFFECTS: loads recipeCatalog from file
+    private void loadRecipeCatalog() {
+        try {
+            recipeCatalog = jsonReader.read();
+            System.out.println("Loaded " + recipeCatalog.getNameOfCatalog() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
 
 
 }
