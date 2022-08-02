@@ -4,8 +4,8 @@ package ui;
 
 import model.Catalog;
 import model.Recipe;
-import persistence.JsonReader;
-import persistence.JsonWriter;
+import persistence.CatalogReader;
+import persistence.CatalogWriter;
 
 
 import java.io.FileNotFoundException;
@@ -16,37 +16,33 @@ import java.util.Scanner;
 
 //Chef Daily Application
 public class ChefDailyApp {
-    private static final String JSON_STORE = "./data/catalog.json";
+    private static final String dataStorage = "./data/catalog.json";
     private Scanner input;
     private Catalog recipeCatalog;
     private ArrayList<Recipe> recipes;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private CatalogWriter catalogWriter;
+    private CatalogReader catalogReader;
 
 
 
     // EFFECTS: runs the app
     public ChefDailyApp() {
         recipeCatalog = new Catalog("Catalog of Recipes");
-        recipes = recipeCatalog.getRecipeCatalog();
+        recipes = recipeCatalog.getRecipes();
         input = new Scanner(System.in);
+        catalogWriter = new CatalogWriter(dataStorage);
+        catalogReader = new CatalogReader(dataStorage);
         runChefDailyApp();
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // MODIFIES: this
     // EFFECTS: run the user input
     public void runChefDailyApp() {
         boolean keepGoing = true;
-
         System.out.println("\nDaily Chef say Hello!");
-
         while (keepGoing) {
-
             displayMainMenu();
             String command = input.next().toLowerCase();
-
             if (command.equals("quit")) {
                 keepGoing = false;
             } else {
@@ -91,7 +87,7 @@ public class ChefDailyApp {
         System.out.println("\tfilter-name -> to filter recipes by a name");
         System.out.println("\tfilter-rating -> to filter recipes by a rating");
         System.out.println("\tadd-ingredients -> to add ingredients to an existing Recipe");
-        System.out.println("\trating -> to set the rating of an existing Recipe");
+        System.out.println("\tadd-rating -> to set the rating of an existing Recipe");
         System.out.println("\tquit -> to quit and back to main menu");
     }
 
@@ -101,7 +97,7 @@ public class ChefDailyApp {
     private void processMainCommand(String command) {
         switch (command) {
             case "view":
-                seeRecipes();
+                viewRecipes();
                 break;
             case "recipe":
                 runRecipeMenu();
@@ -138,7 +134,7 @@ public class ChefDailyApp {
         } else if (command.equals("add-ingredients")) {
             System.out.println("Please insert the name of the recipe:");
             addIngredients(input.nextLine());
-        } else if (command.equals("rating")) {
+        } else if (command.equals("add-rating")) {
             System.out.println("Please insert the name of the recipe you want to rate:");
             addRating(input.nextLine());
         } else {
@@ -147,8 +143,8 @@ public class ChefDailyApp {
     }
 
     // EFFECTS: prints all recipes
-    private void seeRecipes() {
-        System.out.println(recipeCatalog.viewRecipes(recipes));
+    private void viewRecipes() {
+        System.out.println(recipeCatalog.viewRecipes(recipeCatalog.getRecipes()));
     }
 
 
@@ -158,7 +154,8 @@ public class ChefDailyApp {
         for (Recipe r : recipes) {
             if (r.getNameOfRecipe().equals(name.toLowerCase())) {
                 System.out.println("please insert the ingredients (comma separated):");
-                r.addIngredients(input.nextLine());
+                r.addIngredient(input.nextLine());
+                break;
             }
         }
     }
@@ -171,6 +168,7 @@ public class ChefDailyApp {
                 System.out.println("Please insert a rating from 1 to 10:");
                 int rating = Integer.parseInt(input.nextLine());
                 r.addRating(rating);
+                break;
             }
         }
     }
@@ -195,9 +193,10 @@ public class ChefDailyApp {
     // MODIFIES: this
     // EFFECTS: removes recipe
     private void removeRecipe(String name) {
-        for (int i = 0; i < recipeCatalog.getRecipeCatalog().size(); i++) {
-            if (recipeCatalog.getRecipeCatalog().get(i).getNameOfRecipe().equals(name.toLowerCase())) {
-                recipeCatalog.removeRecipe(recipeCatalog.getRecipeCatalog().get(i));
+        for (int i = 0; i < recipeCatalog.getRecipes().size(); i++) {
+            if (recipeCatalog.getRecipes().get(i).getNameOfRecipe().equals(name.toLowerCase())) {
+                recipeCatalog.removeRecipe(recipeCatalog.getRecipes().get(i));
+                System.out.println("Recipe" + " successfully removed");
             }
         }
     }
@@ -209,12 +208,12 @@ public class ChefDailyApp {
     // EFFECTS: saves the recipeCatalog to file
     private void saveRecipeCatalog() {
         try {
-            jsonWriter.open();
-            jsonWriter.write(recipeCatalog);
-            jsonWriter.close();
-            System.out.println("Saved " + recipeCatalog.getNameOfCatalog() + " to " + JSON_STORE);
+            catalogWriter.open();
+            catalogWriter.write(recipeCatalog);
+            catalogWriter.close();
+            System.out.println(recipeCatalog.getNameOfCatalog() + " is saved to " + dataStorage);
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            System.out.println("Unable to write to file: " + dataStorage);
         }
     }
 
@@ -224,14 +223,12 @@ public class ChefDailyApp {
     // EFFECTS: loads recipeCatalog from file
     private void loadRecipeCatalog() {
         try {
-            recipeCatalog = jsonReader.read();
-            System.out.println("Loaded " + recipeCatalog.getNameOfCatalog() + " from " + JSON_STORE);
+            recipeCatalog = catalogReader.read();
+            System.out.println(recipeCatalog.getNameOfCatalog() + " is loaded from " + dataStorage);
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            System.out.println("Unable to read from file: " + dataStorage);
         }
     }
-
-
 
 }
   /*

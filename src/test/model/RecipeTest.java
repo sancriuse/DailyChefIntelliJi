@@ -51,7 +51,7 @@ public class RecipeTest {
 
     @Test
     public void addIngredientsTest() {
-        peanutButterSandwich.addIngredients("Peanut Butter, Bread");
+        peanutButterSandwich.addIngredient("Peanut Butter, Bread");
         assertEquals("Peanut Butter, Bread, ", peanutButterSandwich.getIngredients());
     }
 

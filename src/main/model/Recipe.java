@@ -44,7 +44,7 @@ public class Recipe {
 
     // MODIFIES: this
     // EFFECTS:  adds another ingredient to the list of ingredients
-    public void addIngredients(String ingredient) {
+    public void addIngredient(String ingredient) {
         ingredients =  ingredient + ", ";
     }
     // Don't need a list, String is good
@@ -86,14 +86,14 @@ public class Recipe {
     // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
     //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: returns recipe as a JSON object
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("name", name);
-        json.put("calorieIntake", calorieIntake);
-        json.put("duration", duration);
-        json.put("ingredients", ingredients);
-        json.put("rating", rating);
-        return json;
+    public JSONObject convertRecipe() {
+        JSONObject recipe = new JSONObject();
+        recipe.put("name", name);
+        recipe.put("calorieIntake", calorieIntake);
+        recipe.put("duration", duration);
+        recipe.put("ingredients", ingredients);
+        recipe.put("rating", rating);
+        return recipe;
     }
 
 

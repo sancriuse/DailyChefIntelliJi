@@ -1,0 +1,32 @@
+{
+  "name": "All Recipes",
+  "recipeCatalog": [
+    {
+      "name": "Steak",
+      "calorieIntake": 500,
+      "duration": 30,
+      "ingredients": "Steak, Oil",
+      "rating": 5
+    },
+    {
+      "name": "Avocado Sandwich",
+      "calorieIntake": 200,
+      "duration": 5,
+      "ingredients": "Avocado, Bread",
+      "rating": 8
+    },
+    {
+      "name": "Peanut Butter Sandwich",
+      "calorieIntake": 300,
+      "duration": 10,
+      "ingredients": "Peanut Butter, Bread, Honey",
+      "rating": 10
+    },
+    {
+      "name": "Omlette",
+      "calorieIntake": 400,
+      "duration": 20,
+      "ingredients": "Eggs, Bread"
+    }
+  ]
+}

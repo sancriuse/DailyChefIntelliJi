@@ -1,0 +1,33 @@
+{
+    "recipeCatalog": [
+        {
+            "duration": 2,
+            "calorieIntake": 2,
+            "name": "2",
+            "rating": 2,
+            "ingredients": "2"
+        },
+        {
+            "duration": 3,
+            "calorieIntake": 3,
+            "name": "3",
+            "rating": 3,
+            "ingredients": "3"
+        },
+        {
+            "duration": 4,
+            "calorieIntake": 4,
+            "name": "4",
+            "rating": 4,
+            "ingredients": "4"
+        },
+        {
+            "duration": 1,
+            "calorieIntake": 1,
+            "name": "tomato",
+            "rating": 1,
+            "ingredients": "1"
+        }
+    ],
+    "name": "Catalog of Recipes"
+}

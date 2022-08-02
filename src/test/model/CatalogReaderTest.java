@@ -4,7 +4,7 @@
 package model;
 
 import org.junit.jupiter.api.Test;
-import persistence.JsonReader;
+import persistence.CatalogReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 
-public class JsonReaderTest extends JsonTest {
+public class CatalogReaderTest extends SaveLoadTest {
 
     @Test
-    void testNonExistentFile() {
-        JsonReader reader = new JsonReader("./data/noSuchFile.json");
+    void writerInvalidTest() {
+        CatalogReader reader = new CatalogReader("./data/noFile.json");
         try {
             Catalog recipeCatalog5 = reader.read();
             fail("IOException expected");
@@ -27,8 +27,8 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderEmptyCatalog() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyCatalog.json");
+    void readerEmptyTest() {
+        CatalogReader reader = new CatalogReader("./data/readerEmptyTest.json");
         try {
             Catalog emptyCatalog = reader.read();
             assertEquals("Empty recipes", emptyCatalog.getNameOfCatalog());
@@ -39,16 +39,16 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderGeneralCatalog() {
-        JsonReader reader = new JsonReader("./data/testReaderGeneralCatalog.json");
+    void readerFileTest() {
+        CatalogReader reader = new CatalogReader("./data/readerFileTest.json");
         try {
             Catalog meatCatalog = reader.read();
             assertEquals("Meat recipes", meatCatalog.getNameOfCatalog());
-            ArrayList<Recipe> recipes = meatCatalog.getRecipeCatalog();
+            ArrayList<Recipe> recipes = meatCatalog.getRecipes();
             assertEquals(1, meatCatalog.getNumOfRecipes());
-            checkRecipe("Steak", 500, 30,
-                    "Steak, Oil", 5, meatCatalog.getRecipeCatalog().get(0));
-            //assertEquals("Steak", meatCatalog.getRecipeCatalog().get(0).getNameOfRecipe());
+            scanRecipe("Steak", 500, 30,
+                    "Steak, Oil", 5, meatCatalog.getRecipes().get(0));
+            assertEquals("Steak", meatCatalog.getRecipes().get(0).getNameOfRecipe());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

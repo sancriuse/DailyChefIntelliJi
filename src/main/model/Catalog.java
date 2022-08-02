@@ -8,20 +8,20 @@ import java.util.ArrayList;
 // A catalogue of recipes
 public class Catalog {
     private String name;
-    private ArrayList<Recipe> recipeCatalog;
+    private ArrayList<Recipe> recipes;
 
     // MODIFIES: this
     // EFFECTS: constructs a new Catalog
     public Catalog(String name) {
         this.name = name;
-        recipeCatalog = new ArrayList<>();
+        recipes = new ArrayList<>();
     }
 
 
     // MODIFIES: Catalog
     // EFFECTS: adds a new recipe
     public void addRecipe(Recipe recipe) {
-        recipeCatalog.add(recipe);
+        recipes.add(recipe);
     }
 
     public String getNameOfCatalog() {
@@ -32,26 +32,26 @@ public class Catalog {
     // MODIFIES: Catalog
     // EFFECTS: remove recipes from the catalog.
     public void removeRecipe(Recipe recipe) {
-        recipeCatalog.remove(recipe);
+        recipes.remove(recipe);
     }
 
     public int getNumOfRecipes() {
-        return recipeCatalog.size();
+        return recipes.size();
     }
 
     // EFFECTS: returns the recipes in a Catalog as a string
-    public String viewRecipes(ArrayList<Recipe> recipeCatalog) {
+    public String viewRecipes(ArrayList<Recipe> recipes) {
         String recipeList = "";
-        for (Recipe r: recipeCatalog) {
+        for (Recipe r: recipes) {
             recipeList = recipeList + "\n" + r.getRecipeInformation();
         }
-        return recipeCatalog.size() + " recipes in catalog:" + recipeList;
+        return recipes.size() + " recipes in catalog:" + recipeList;
     }
 
     // EFFECTS: search and filter recipe
     public ArrayList<Recipe> filterRecipesByName(String name) {
         ArrayList<Recipe> filtered = new ArrayList<>();
-        for (Recipe r: recipeCatalog) {
+        for (Recipe r: recipes) {
             if (r.getNameOfRecipe().toLowerCase().contains(name.toLowerCase())) {
                 filtered.add(r);
             }
@@ -62,7 +62,7 @@ public class Catalog {
     // search and filter recipe
     public ArrayList<Recipe> filterRecipesByRating(int rating) {
         ArrayList<Recipe> filtered = new ArrayList<>();
-        for (Recipe r: recipeCatalog) {
+        for (Recipe r: recipes) {
             if (r.getRating() == rating) {
                 filtered.add(r);
             }
@@ -72,35 +72,35 @@ public class Catalog {
 
     //public String getNameOfCatalog() {return name;}
 
-    public ArrayList<Recipe> getRecipeCatalog() {
-        return recipeCatalog;
+    public ArrayList<Recipe> getRecipes() {
+        return recipes;
     }
 
 
     public boolean contains(Recipe recipe) {
-        return recipeCatalog.contains(recipe);
+        return recipes.contains(recipe);
     }
 
     // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
     //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: returns recipeCatalog as a JSON object
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("name", name);
-        json.put("recipeCatalog", recipesToJson());
-        return json;
+    public JSONObject convertCatalog() {
+        JSONObject catalog = new JSONObject();
+        catalog.put("name", name);
+        catalog.put("recipeCatalog", recipesToCatalog());
+        return catalog;
     }
 
 
     // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
     //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-    // EFFECTS: returns a JSon array (from recipeCatalog)
-    private JSONArray recipesToJson() {
-        JSONArray jsonArray = new JSONArray();
-        for (Recipe r : recipeCatalog) {
-            jsonArray.put(r.toJson());
+    // EFFECTS: returns a JSon array (converted from recipes)
+    private JSONArray recipesToCatalog() {
+        JSONArray recipeArray = new JSONArray();
+        for (Recipe r : recipes) {
+            recipeArray.put(r.convertRecipe());
         }
-        return jsonArray;
+        return recipeArray;
     }
 
 

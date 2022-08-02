@@ -15,11 +15,11 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 // represents a reader that reads JSON data from source file
-public class JsonReader {
+public class CatalogReader {
     private String source;
 
     // EFFECTS: constructs a reader to read from source file
-    public JsonReader(String source) {
+    public CatalogReader(String source) {
         this.source = source;
     }
 
@@ -27,21 +27,21 @@ public class JsonReader {
     //          throws IOException if an error occurs reading data from file
     public Catalog read() throws IOException {
         String jsonData = readFile(source);
-        JSONObject jsonObject = new JSONObject(jsonData);
-        return parseCatalog(jsonObject);
+        JSONObject catalogObject = new JSONObject(jsonData);
+        return makeCatalog(catalogObject);
     }
 
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
-        StringBuilder contentBuilder = new StringBuilder();
+        StringBuilder catalogBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s));
+            stream.forEach(s -> catalogBuilder.append(s));
         }
-        return contentBuilder.toString();
+        return catalogBuilder.toString();
     }
 
     // EFFECTS: parses catalog from JSON object and returns it
-    private Catalog parseCatalog(JSONObject jsonObject) {
+    private Catalog makeCatalog(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Catalog c = new Catalog(name);
         addRecipes(c, jsonObject);
@@ -50,9 +50,9 @@ public class JsonReader {
 
     // MODIFIES: c
     // EFFECTS: parses recipes from JSON object and adds them to catalog.
-    private void addRecipes(Catalog c, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("recipeCatalog");
-        for (Object json : jsonArray) {
+    private void addRecipes(Catalog c, JSONObject recipeCatalog) {
+        JSONArray recipeArray = recipeCatalog.getJSONArray("recipeCatalog");
+        for (Object json : recipeArray) {
             JSONObject nextRecipe = (JSONObject) json;
             addOneRecipe(c, nextRecipe);
         }
@@ -60,12 +60,12 @@ public class JsonReader {
 
     // MODIFIES: c
     // EFFECTS: parses recipe from JSON object and adds it to catalog
-    private void addOneRecipe(Catalog c, JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
-        int calorieIntake = jsonObject.getInt("calorieIntake");
-        int duration = jsonObject.getInt("duration");
-        String ingredients = jsonObject.getString("ingredients");
-        int rating = jsonObject.getInt("rating");
+    private void addOneRecipe(Catalog c, JSONObject recipe) {
+        String name = recipe.getString("name");
+        int calorieIntake = recipe.getInt("calorieIntake");
+        int duration = recipe.getInt("duration");
+        String ingredients = recipe.getString("ingredients");
+        int rating = recipe.getInt("rating");
 
         Recipe r = new Recipe(name, calorieIntake, duration, ingredients, rating);
         c.addRecipe(r);

@@ -1,4 +1,4 @@
-# *DailyChef: A Recipe Catalogue*
+# *DailyChef: A Recipe Catalog*
 
 
 
@@ -21,7 +21,7 @@ The motivation comes from my personal experience,
 I love to cook and track the recipes I have made
 and learned.
 It is hard to remember the recipes one has learned
-to cook, therefore a catalogue is of great help.
+to cook, therefore a catalog is of great help.
 
 
 ## User Stories and Features
@@ -36,8 +36,8 @@ to cook, therefore a catalogue is of great help.
 - As a user, I want to view my recipes in my catalog.
 - As a user, I want to Search and filter through the catalog based on settings like name.
 - 
-- As a user, I want to save my catalogue to file.
-- As a user, I want to load my catalogue from file.
+- As a user, I want to save my catalog to file.
+- As a user, I want to reload from file and resume exactly where I left off.
 
 
 

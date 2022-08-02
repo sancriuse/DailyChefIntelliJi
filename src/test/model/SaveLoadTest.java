@@ -5,8 +5,8 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JsonTest {
-    protected void checkRecipe (String name, int calorieIntake, int duration, String ingredients, int rating, Recipe r) {
+public class SaveLoadTest {
+    protected void scanRecipe(String name, int calorieIntake, int duration, String ingredients, int rating, Recipe r) {
         assertEquals(name, r.getNameOfRecipe());
         assertEquals(calorieIntake, r.getCalorieIntake());
         assertEquals(duration, r.getDuration());

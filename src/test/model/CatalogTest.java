@@ -32,13 +32,13 @@ class CatalogTest {
         easyRecipes.addRecipe(omlette);
 
         assertEquals(("1 recipes in catalog:" + "\n" + "Name: omlette | Ingredients: Eggs, Salt | Calorie " +
-                "Intake: 300 | Duration: 20 | Rating: 9"), easyRecipes.viewRecipes(easyRecipes.getRecipeCatalog()));
+                "Intake: 300 | Duration: 20 | Rating: 9"), easyRecipes.viewRecipes(easyRecipes.getRecipes()));
 
         easyRecipes.addRecipe(peanutButterSandwich);
 
         assertEquals("2 recipes in catalog:\n" + "Name: omlette | Ingredients: Eggs, Salt | Calorie Intake: 300 " +
           "| Duration: 20 | Rating: 9\n" + "Name:  | Ingredients:  | Calorie Intake: 0 " +
-          "| Duration: 0 | Rating: 0", easyRecipes.viewRecipes(easyRecipes.getRecipeCatalog()));
+          "| Duration: 0 | Rating: 0", easyRecipes.viewRecipes(easyRecipes.getRecipes()));
 
          //   recipeList = "" + "\n" + r.getRecipeInformation();
         //return recipeCatalog.size() + " recipes in catalog:\n" + recipeList; */
@@ -48,12 +48,12 @@ class CatalogTest {
     @Test
     public void getRecipeCatalogTest() {
         easyRecipes.addRecipe(omlette);
-        assertTrue(easyRecipes.getRecipeCatalog().contains(omlette));
-        assertEquals(1, easyRecipes.getRecipeCatalog().size());
+        assertTrue(easyRecipes.getRecipes().contains(omlette));
+        assertEquals(1, easyRecipes.getRecipes().size());
 
         easyRecipes.addRecipe(peanutButterSandwich);
-        assertTrue(easyRecipes.getRecipeCatalog().contains(peanutButterSandwich));
-        assertEquals(2, easyRecipes.getRecipeCatalog().size());
+        assertTrue(easyRecipes.getRecipes().contains(peanutButterSandwich));
+        assertEquals(2, easyRecipes.getRecipes().size());
 
     }
 
