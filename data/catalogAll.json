@@ -26,7 +26,8 @@
       "name": "Omlette",
       "calorieIntake": 400,
       "duration": 20,
-      "ingredients": "Eggs, Bread"
+      "ingredients": "Eggs, Bread",
+      "rating": 9
     }
   ]
 }

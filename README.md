@@ -35,12 +35,18 @@ to cook, therefore a catalog is of great help.
 - As a user, I want to add a rating to a recipe on a scale of 1 to 10. 
 - As a user, I want to view my recipes in my catalog.
 - As a user, I want to Search and filter through the catalog based on settings like name.
-- 
+
 - As a user, I want to save my catalog to file.
 - As a user, I want to reload from file and resume exactly where I left off.
 
 
+# Instructions for Grader
 
+- You can generate the first required event by filling the parameters and clicking on add recipe button.
+- You can generate the second required event by typing in the filter and search menu and getting the filtered recipes.
+- You can locate my visual component on my application at the right corner.
+- You can save the state of my application by clicking on the "Save Recipes" Button.
+- You can reload the state of my application by clicking on the "Load Recipes" Button.
 
 
 

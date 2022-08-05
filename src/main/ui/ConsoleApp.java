@@ -1,11 +1,12 @@
+/*
 //Used basic syntax and code for runApp, processCommand and displayMenu from the Teller Application.
 
 package ui;
 
 import model.Catalog;
 import model.Recipe;
-import persistence.CatalogReader;
 import persistence.CatalogWriter;
+import persistence.CatalogReader;
 
 
 import java.io.FileNotFoundException;
@@ -15,7 +16,7 @@ import java.util.Scanner;
 
 
 //Chef Daily Application
-public class ChefDailyApp {
+public class ConsoleApp {
     private static final String dataStorage = "./data/catalog.json";
     private Scanner input;
     private Catalog recipeCatalog;
@@ -24,9 +25,8 @@ public class ChefDailyApp {
     private CatalogReader catalogReader;
 
 
-
     // EFFECTS: runs the app
-    public ChefDailyApp() {
+    public ConsoleApp() {
         recipeCatalog = new Catalog("Catalog of Recipes");
         recipes = recipeCatalog.getRecipes();
         input = new Scanner(System.in);
@@ -34,6 +34,7 @@ public class ChefDailyApp {
         catalogReader = new CatalogReader(dataStorage);
         runChefDailyApp();
     }
+
 
     // MODIFIES: this
     // EFFECTS: run the user input
@@ -154,7 +155,7 @@ public class ChefDailyApp {
         for (Recipe r : recipes) {
             if (r.getNameOfRecipe().equals(name.toLowerCase())) {
                 System.out.println("please insert the ingredients (comma separated):");
-                r.addIngredient(input.nextLine());
+                r.addIngredients(input.nextLine());
                 break;
             }
         }
@@ -202,7 +203,6 @@ public class ChefDailyApp {
     }
 
 
-
     // NOTE: parts of the code have been modeled after UBC CPSC 210's Json Serialization Demo:
     //                  https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: saves the recipeCatalog to file
@@ -211,7 +211,7 @@ public class ChefDailyApp {
             catalogWriter.open();
             catalogWriter.write(recipeCatalog);
             catalogWriter.close();
-            System.out.println(recipeCatalog.getNameOfCatalog() + " is saved to " + dataStorage);
+
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + dataStorage);
         }
@@ -231,7 +231,9 @@ public class ChefDailyApp {
     }
 
 }
-  /*
+*/
+
+/*
     private Catalog recipesCatalog;
     private Scanner input;
 
@@ -358,5 +360,7 @@ public class ChefDailyApp {
     }
 }
 */
+
+
 
 

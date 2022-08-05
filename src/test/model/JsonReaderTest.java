@@ -4,7 +4,7 @@
 package model;
 
 import org.junit.jupiter.api.Test;
-import persistence.CatalogReader;
+import persistence.JsonReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 
-public class CatalogReaderTest extends SaveLoadTest {
+public class JsonReaderTest extends SaveLoadTest {
 
     @Test
     void writerInvalidTest() {
-        CatalogReader reader = new CatalogReader("./data/noFile.json");
+        JsonReader reader = new JsonReader("./data/noFile.json");
         try {
             Catalog recipeCatalog5 = reader.read();
             fail("IOException expected");
@@ -28,7 +28,7 @@ public class CatalogReaderTest extends SaveLoadTest {
 
     @Test
     void readerEmptyTest() {
-        CatalogReader reader = new CatalogReader("./data/readerEmptyTest.json");
+        JsonReader reader = new JsonReader("./data/readerEmptyTest.json");
         try {
             Catalog emptyCatalog = reader.read();
             assertEquals("Empty recipes", emptyCatalog.getNameOfCatalog());
@@ -40,7 +40,7 @@ public class CatalogReaderTest extends SaveLoadTest {
 
     @Test
     void readerFileTest() {
-        CatalogReader reader = new CatalogReader("./data/readerFileTest.json");
+        JsonReader reader = new JsonReader("./data/readerFileTest.json");
         try {
             Catalog meatCatalog = reader.read();
             assertEquals("Meat recipes", meatCatalog.getNameOfCatalog());

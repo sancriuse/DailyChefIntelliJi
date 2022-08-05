@@ -15,11 +15,11 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 // represents a reader that reads JSON data from source file
-public class CatalogReader {
+public class JsonReader {
     private String source;
 
     // EFFECTS: constructs a reader to read from source file
-    public CatalogReader(String source) {
+    public JsonReader(String source) {
         this.source = source;
     }
 

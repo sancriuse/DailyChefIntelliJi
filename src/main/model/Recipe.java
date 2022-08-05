@@ -44,7 +44,7 @@ public class Recipe {
 
     // MODIFIES: this
     // EFFECTS:  adds another ingredient to the list of ingredients
-    public void addIngredient(String ingredient) {
+    public void addIngredients(String ingredient) {
         ingredients =  ingredient + ", ";
     }
     // Don't need a list, String is good

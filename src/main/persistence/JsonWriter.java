@@ -10,13 +10,13 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 // represents a writer that writes to destination file
-public class CatalogWriter {
+public class JsonWriter {
     private static final int TAB = 4;
     private PrintWriter catalogWriter;
     private String finalCatalog;
 
     // EFFECTS: constructs writer to write to destination file
-    public CatalogWriter(String destination) {
+    public JsonWriter(String destination) {
         this.finalCatalog = destination;
     }
 
