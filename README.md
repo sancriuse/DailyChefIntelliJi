@@ -42,7 +42,8 @@ to cook, therefore a catalog is of great help.
 
 # Instructions for Grader
 
-- You can generate the first required event by filling the parameters and clicking on add recipe button.
+- You can generate the first required event by filling the parameters and clicking on add recipe 
+button and recipes get added to the catalog.
 - You can generate the second required event by typing in the filter and search menu and getting the filtered recipes.
 - You can locate my visual component on my application at the right corner.
 - You can save the state of my application by clicking on the "Save Recipes" Button.
