@@ -11,20 +11,21 @@
 package ui;
 
 import model.Catalog;
+import model.Event;
+import model.EventLog;
 import model.Recipe;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.table.TableRowSorter;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 
 
 // represents the DailyChef application
@@ -47,6 +48,14 @@ public class DailyChefApp extends JFrame {
         getContentPane().add(gui);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initializeKeys();
+
+        //EFFECTS: prints the log when the window is closed
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                printLog(EventLog.getInstance());
+            }
+        });
     }
 
     // MODIFIES; this
@@ -65,7 +74,7 @@ public class DailyChefApp extends JFrame {
     // EFFECTS: if new recipe data is valid, adds recipes to catalog and resets new recipe fields
     private void addPressed() {
         if (isNewRecipeValid()) {
-            recipes.add(getNewRecipe());
+            recipeCatalog.addRecipe(getNewRecipe());
             resetNewRecipeFields();
             gui.updateRecipeCatalog(recipes);
         }
@@ -92,7 +101,7 @@ public class DailyChefApp extends JFrame {
 
         // if a row is selected
         if (index != -1) {
-            recipes.remove(index);
+            recipeCatalog.removeRecipe(recipes.get(index));
             gui.updateRecipeCatalog(recipes);
         }
     }
@@ -134,6 +143,8 @@ public class DailyChefApp extends JFrame {
 
         initializeSearch();
     }
+
+
 
     // MODIFIES: view
     // EFFECTS: add key listener to search bar
@@ -209,4 +220,29 @@ public class DailyChefApp extends JFrame {
             System.out.println("Unable to read from file: " + dataStorage);
         }
     }
+
+
+
+//    addWindowListener(new WindowAdapter(){
+//        @Override
+//        public void windowClosing(WindowEvent we){
+//            System.exit(0);
+//
+//            printLog(EventLog.getInstance());
+//        }
+//    });
+
+
+    //EFFECTS: prints out all the event descriptions
+    public void printLog(EventLog el) {
+//        Iterator eventIter = el.iterator();
+//        while (eventIter.hasNext()) {
+//            Event nextEvent = (Event) eventIter.next();
+//            System.out.println(nextEvent.toString());
+//        }
+        for (Event next : el) {
+            System.out.println(next.toString() + "\n");
+        }
+    }
+
 }

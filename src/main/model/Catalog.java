@@ -6,9 +6,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-//
-
-
 // A catalogue of recipes
 public class Catalog {
     private String name;
@@ -26,6 +23,7 @@ public class Catalog {
     // EFFECTS: adds a new recipe
     public void addRecipe(Recipe recipe) {
         recipes.add(recipe);
+        EventLog.getInstance().logEvent(new Event("added the recipe to the Catalog."));
     }
 
     public String getNameOfCatalog() {
@@ -37,6 +35,7 @@ public class Catalog {
     // EFFECTS: remove recipes from the catalog.
     public void removeRecipe(Recipe recipe) {
         recipes.remove(recipe);
+        EventLog.getInstance().logEvent(new Event("removed the recipe from the Catalog."));
     }
 
     public int getNumOfRecipes() {

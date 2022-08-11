@@ -4,9 +4,15 @@
 
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Recipe;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -295,4 +301,5 @@ public class DailyChefGUI extends JPanel {
         appLabel.setSize(250, 50);
         add(appLabel);
     }
+
 }

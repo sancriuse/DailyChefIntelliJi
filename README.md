@@ -50,11 +50,49 @@ button and recipes get added to the catalog.
 - You can reload the state of my application by clicking on the "Load Recipes" Button.
 
 
+# Phase 4: Task 2
+
+When the application is quit, all the EventLog statements are printed in the console.
+
+
+A statement like the following is printed and tracked in the 
+event log whenever the "Add Recipe" Button is pressed in the GUI.
+- Wed Aug 10 16:38:29 PDT 2022
+
+  added the recipe to the Catalog.
+
+A statement like the following is printed and tracked in the
+event log whenever the "Remove Recipe" Button is pressed in the GUI.
+- Wed Aug 10 16:38:40 PDT 2022 
+
+  removed the recipe from the Catalog.
+
+
+Example Event Log ->
+![](../../EventLog.jpg)
 
 
 
+# Phase 4: Task 3
+
+![](../../UML diagram.jpg)
+
+REFLECTION ON THE UML DIAGRAM and POSSIBLE REFACTORING:
+
+- Reflecting on the UML diagram of classes in this project, multiple classes use the recipe class because recipes must be added in the catalog when using add function and also when using other functions on recipes in the App.
 
 
 
+- I could have used and replaced if statements with switch statements to improve readability.
 
+
+
+- Lambda expression can be used to convert the method bodies of a few action listeners for example.
+
+
+
+- One can make an interface but not all methods from WindowMaker would be helpful, also the UI classes already have some implementation of the methods and it would have been duplicative to implement the method again a second time.
+
+
+- Finally, one can also use Windowmaker as an abstract class and have other classes extend it in the UI package but they already extend JFrame and it won't be possible to extend another class.
 
