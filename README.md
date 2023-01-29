@@ -1,4 +1,4 @@
-# *DailyChef: A Recipe Catalog*
+# *Fitness-Cook: A Recipe Catalog*
 
 
 
